@@ -2,6 +2,24 @@ version: '3'
 
 services:
 ###> shopware/core ###
+  application:
+    build:
+      context: .
+      dockerfile: ./docker/php-fpm/Dockerfile
+    volumes:
+      - ./public:/var/www/public
+    ports:
+      - "9000:9000"
+  nginx:
+    build:
+      context: .
+      dockerfile: ./docker/nginx/Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./public:/var/www/public
+    depends_on:
+      - application
   database:
     image: mysql:${MYSQL_VERSION:-8.3.0}-oracle
     environment:
