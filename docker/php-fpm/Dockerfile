@@ -66,6 +66,8 @@ COPY ./docker/php-fpm/app.ini /usr/local/etc/php/conf.d/app.ini
 WORKDIR /var/www
 
 COPY . /var/www
+RUN mkdir -p var/cache
+RUN mkdir -p var/log
 RUN chown www-data -R var/cache
 RUN chown www-data -R var/log
 
